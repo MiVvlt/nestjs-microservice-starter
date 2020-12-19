@@ -1,0 +1,39 @@
+<div class="main-container">
+  <header class="header header-6">
+    <div class="branding">
+      <clr-icon shape="blocks-group"></clr-icon>
+      <h3 class="clr-hidden-md-down">{{ title }}</h3>
+    </div>
+
+    <div class="header-nav">
+      <a routerLink="home" routerLinkActive="active" class="nav-link nav-text">Home</a>
+      <a routerLink="" routerLinkActive="active" class="nav-link nav-text">About</a>
+    </div>
+
+    <div class="header-actions">
+      <clr-dropdown>
+        <button class="nav-icon" clrDropdownTrigger aria-label="toggle settings menu">
+          <clr-icon shape="cog"></clr-icon>
+          <clr-icon shape="caret down"></clr-icon>
+        </button>
+        <clr-dropdown-menu *clrIfOpen [clrPosition]="'bottom-right'">
+          <a routerLink="register" routerLinkActive="active" clrDropdownItem>Register</a>
+          <a routerLink="login" routerLinkActive="active" clrDropdownItem>Login</a>
+        </clr-dropdown-menu>
+      </clr-dropdown>
+    </div>
+  </header>
+  <nav class="subnav" *ngIf="showBreadcrumbs">
+    Current location:
+  </nav>
+  <div class="content-container">
+    <div class="content-area">
+      <router-outlet></router-outlet>
+    </div>
+    <clr-vertical-nav *ngIf="hasSideNav"
+                      [clrVerticalNavCollapsible]="true"
+                      [(clrVerticalNavCollapsed)]="sideNavCollapsed">
+      <a clrVerticalNavLink routerLink="home" routerLinkActive="active">Home</a>
+    </clr-vertical-nav>
+  </div>
+</div>
