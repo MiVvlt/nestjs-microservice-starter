@@ -1,5 +1,7 @@
 <div class="login-wrapper">
-  <form [formGroup]="loginForm" class="login" (ngSubmit)="submit()">
+  <form [formGroup]="loginForm"
+        class="login"
+        (ngSubmit)="submit()">
     <section class="title">
       <h3 class="welcome">Welcome to</h3>
       {{productName}}
@@ -9,18 +11,26 @@
 
       <clr-input-container>
         <label class="clr-sr-only">Email</label>
-        <input type="text" [formControlName]="'email'" clrInput placeholder="Email"/>
+        <input type="text"
+               [formControlName]="'email'"
+               clrInput
+               placeholder="Email"/>
       </clr-input-container>
-      <div class="error active" *ngIf="loginForm?.get('email')?.dirty && loginForm?.get('email')?.hasError('required')">
+      <div class="error active"
+           *ngIf="loginForm?.get('email')?.dirty && loginForm?.get('email')?.hasError('required')">
         Email is a required field
       </div>
-      <div class="error active" *ngIf="loginForm?.get('email')?.dirty && loginForm?.get('email')?.hasError('email')">
+      <div class="error active"
+           *ngIf="loginForm?.get('email')?.dirty && loginForm?.get('email')?.hasError('email')">
         Please provide a valid email
       </div>
 
       <clr-password-container>
         <label class="clr-sr-only">Password</label>
-        <input type="password" [formControlName]="'password'" clrPassword placeholder="Password"/>
+        <input type="password"
+               [formControlName]="'password'"
+               clrPassword
+               placeholder="Password"/>
       </clr-password-container>
       <div class="error active"
            *ngIf="loginForm?.get('password')?.dirty && loginForm?.get('password')?.hasError('required')">
@@ -31,8 +41,12 @@
         Password should be at least 8 characters
       </div>
 
-      <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">NEXT</button>
-      <a [routerLink]="'/register'" class="signup">Sign up for a Company ID</a>
+      <button type="submit"
+              class="btn btn-primary"
+              [disabled]="!loginForm.valid">NEXT
+      </button>
+      <a [routerLink]="'/register'"
+         class="signup">Sign up for a Company ID</a>
     </div>
   </form>
 </div>

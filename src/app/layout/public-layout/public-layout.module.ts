@@ -8,12 +8,11 @@ import {ClrDropdownModule, ClrIconModule, ClrVerticalNavModule} from "@clr/angul
 
 @NgModule({
   declarations: [PublicLayoutComponent],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(publicLayoutRoutes),
-    ClrIconModule,
-    ClrDropdownModule,
-    ClrVerticalNavModule
+  imports: [ CommonModule,
+             RouterModule.forChild( publicLayoutRoutes ),
+             ClrIconModule,
+             ClrDropdownModule,
+             ClrVerticalNavModule,
   ]
 })
 export class PublicLayoutModule {

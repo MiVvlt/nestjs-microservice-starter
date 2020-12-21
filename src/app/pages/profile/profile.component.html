@@ -8,13 +8,16 @@
         <div class="card-title">
           Profile
         </div>
-        <div class="card-text" *ngIf="profile">
+        <div class="card-text"
+             *ngIf="profile">
           Name: {{profile?.firstname}} {{profile?.lastname}}
         </div>
-        <div class="card-text" *ngIf="profile">
+        <div class="card-text"
+             *ngIf="profile">
           E-mail: {{profile?.email}}
         </div>
-        <div class="card-text" *ngIf="profile">
+        <div class="card-text"
+             *ngIf="profile">
           Created: {{profile?.dateCreated | date : 'dd MMM yyyy, HH:mm'}}
         </div>
       </div>
