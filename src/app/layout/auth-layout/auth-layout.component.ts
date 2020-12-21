@@ -79,11 +79,7 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
-    try {
       this.profile = (await this.fetchProfile()) as IProfile;
-    } catch (err) {
-      this.router.navigate(['/login']);
-    }
   }
 
   ngOnDestroy() {

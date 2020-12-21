@@ -11,6 +11,11 @@ export const privateLayoutRoutes: Routes = [
           return import('../../pages/home/home.module').then(m => m.HomeModule);
         }
       },
+      {
+        path: 'profile', loadChildren: () => {
+          return import('../../pages/profile/profile.module').then(m => m.ProfileModule);
+        }
+      },
     ]
   },
   {path: '**', redirectTo: '/home',}

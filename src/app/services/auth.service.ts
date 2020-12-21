@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import * as jwtDecode from "jwt-decode";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 
 @Injectable({
@@ -15,7 +15,6 @@ export class AuthService {
   getCachedAccessToken() {
     const token = localStorage.getItem(this.TOKEN_KEY);
     try {
-
       // check token expiration
       const now = Math.round(new Date().getTime() / 1000);
       const expiration = ((jwtDecode.default(token as string) as { exp: number }).exp)
@@ -43,7 +42,9 @@ export class AuthService {
 
   async acquireToken() {
     const {accessToken} =
-      await (this.http.post(environment.BFF_URL + 'auth/refresh_token', {}, {withCredentials: true}).toPromise()) as { accessToken: string };
+      await (this.http.post(environment.BFF_URL + 'auth/refresh_token', '', {
+        withCredentials: true,
+      }).toPromise()) as {accessToken: string}
 
     if (accessToken) {
       localStorage.setItem(this.TOKEN_KEY, accessToken)

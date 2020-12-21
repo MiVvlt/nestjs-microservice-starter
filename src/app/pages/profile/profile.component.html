@@ -1,0 +1,26 @@
+<div class="clr-row">
+  <div class="clr-col-lg-4 clr-col-md-6 clr-col-12">
+    <div class="card">
+      <div class="card-img">
+        <img src="https://place-hold.it/200x200">
+      </div>
+      <div class="card-block">
+        <div class="card-title">
+          Profile
+        </div>
+        <div class="card-text" *ngIf="profile">
+          Name: {{profile?.firstname}} {{profile?.lastname}}
+        </div>
+        <div class="card-text" *ngIf="profile">
+          E-mail: {{profile?.email}}
+        </div>
+        <div class="card-text" *ngIf="profile">
+          Created: {{profile?.dateCreated | date : 'dd MMM yyyy, HH:mm'}}
+        </div>
+      </div>
+      <div class="card-footer">
+        <button class="btn btn-sm btn-link">Footer Action 2</button>
+      </div>
+    </div>
+  </div>
+</div>

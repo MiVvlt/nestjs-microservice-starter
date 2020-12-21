@@ -14,7 +14,7 @@ const publicOperations = ['login', 'register'];
 export function createApollo(httpLink: HttpLink, authService: AuthService) {
   const basic = setContext((operation, context) => ({
     headers: {
-      Accept: 'charset=utf-8'
+      Accept: 'charset=utf-8',
     }
   }));
 
@@ -26,7 +26,6 @@ export function createApollo(httpLink: HttpLink, authService: AuthService) {
 
     // Grab token if there is one in storage or hasn't expired
     let token = authService.getCachedAccessToken();
-    console.log(token)
 
     if (!token) {
       await authService.acquireToken();
@@ -40,7 +39,7 @@ export function createApollo(httpLink: HttpLink, authService: AuthService) {
     };
   });
 
-  const link = ApolloLink.from([basic, auth, httpLink.create({uri})]);
+  const link = ApolloLink.from([basic, auth, httpLink.create({uri, withCredentials: true})]);
   const cache = new InMemoryCache();
 
   return {
