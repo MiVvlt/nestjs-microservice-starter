@@ -1,4 +1,7 @@
 <div class="main-container">
+  <!--
+  // ALERTS
+  -->
   <clr-alert *ngIf="alert.visible"
              [clrAlertType]="alert.type"
              [clrAlertClosable]="false"
@@ -7,62 +10,109 @@
         <span class="alert-text">
             {{ alert.message}}
         </span>
-      <div class="alert-actions" *ngIf="alert.dismissable">
-        <button class="btn alert-action" (click)="dismissAlert()">Dismiss</button>
+      <div class="alert-actions"
+           *ngIf="alert.dismissable">
+        <button class="btn alert-action"
+                (click)="dismissAlert()">{{'GENERAL.DISMISS' | translate}}</button>
       </div>
     </clr-alert-item>
   </clr-alert>
+
+  <!--
+  // HEADER
+  -->
+
   <header class="header header-6">
     <div class="branding">
       <clr-icon shape="blocks-group"></clr-icon>
       <h3 class="clr-hidden-md-down">{{ title }}</h3>
     </div>
 
+
+    <!--
+    // MAIN NAVIGATION
+    -->
     <div class="header-nav">
       <a routerLink="home"
          routerLinkActive="active"
-         class="nav-link nav-text">Home</a>
+         class="nav-link nav-text">{{'AUTH_LAYOUT.HEADER_NAV.HOME' | translate}}</a>
       <a routerLink=""
          routerLinkActive="active"
-         class="nav-link nav-text">About</a>
+         class="nav-link nav-text">{{'AUTH_LAYOUT.HEADER_NAV.ABOUT' | translate}}</a>
     </div>
 
+    <!--
+    // MAIN NAVIGATION ACTIONS
+    -->
     <div class="header-actions">
       <clr-dropdown>
+
+        <!--
+        // SETTINGS MENU
+        -->
         <button class="nav-icon"
                 clrDropdownTrigger
                 aria-label="toggle settings menu">
           <clr-icon shape="cog"></clr-icon>
           <clr-icon shape="caret down"></clr-icon>
         </button>
+
+        <!--
+        // SETTINGS MENU DROPDOWN
+        -->
         <clr-dropdown-menu *clrIfOpen
                            [clrPosition]="'bottom-right'">
-          <h4 class="dropdown-header">Welcome, {{profile?.firstname}}</h4>
+
+          <h4 class="dropdown-header">
+            {{'AUTH_LAYOUT.HEADER_NAV.SETTINGS.WELCOME_MESSAGE' | translate : {name: profile?.firstname} }}
+          </h4>
+
           <div class="dropdown-divider"
                role="separator"></div>
+
           <button class="dropdown-item"
                   routerLink="/auth/profile"
                   routerLinkActive="active">
             <clr-icon shape="user"></clr-icon>
-            Profile
+            {{'AUTH_LAYOUT.HEADER_NAV.SETTINGS.PROFILE' | translate }}
           </button>
+
           <button class="dropdown-item"
                   (click)="logout()">
             <clr-icon shape="logout"></clr-icon>
-            Logout
+            {{'AUTH_LAYOUT.HEADER_NAV.SETTINGS.LOGOUT' | translate }}
           </button>
+
         </clr-dropdown-menu>
       </clr-dropdown>
     </div>
   </header>
-  <nav class="subnav"
+
+  <!--
+  // SUB NAVIGATION (BREADCRUMBS)
+  -->
+  <nav class="subnav ph-2"
        *ngIf="showBreadcrumbs">
-    Current location:
+    {{'AUTH_LAYOUT.BREADCRUMBS.CURRENT_LOCATION' | translate }} :
   </nav>
+
+  <!--
+  // MAIN CONTENT
+  -->
+
   <div class="content-container">
+
+    <!--
+   // PAGE CONTENT
+   -->
+
     <div class="content-area">
       <router-outlet></router-outlet>
     </div>
+
+    <!--
+    // SIDE NAVIGATION
+    -->
     <clr-vertical-nav *ngIf="hasSideNav"
                       [clrVerticalNavCollapsible]="true"
                       [(clrVerticalNavCollapsed)]="sideNavCollapsed">

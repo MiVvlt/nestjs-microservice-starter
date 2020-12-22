@@ -78,6 +78,7 @@ export class ProfileComponent
   safeAvatar: SafeUrl          = '';
 
   public basicInfoForm: FormGroup;
+  public editingBasicInfo: boolean = false;
   public updatePasswordForm: FormGroup;
 
 
@@ -89,10 +90,26 @@ export class ProfileComponent
                private sanitization: DomSanitizer,
   ) {
     this.basicInfoForm      = this.fb.group( {
-                                               email    : [ '', [ Validators.required, Validators.email ] ],
-                                               bio      : [ '' ],
-                                               firstname: [ '' ],
-                                               lastname : [ '' ],
+                                               email    : [ {
+                                                 value   : '',
+                                                 disabled: true,
+                                               }, [ Validators.required, Validators.email ],
+                                               ],
+                                               bio      : [ {
+                                                 value   : '',
+                                                 disabled: true,
+                                               },
+                                               ],
+                                               firstname: [ {
+                                                 value   : '',
+                                                 disabled: true,
+                                               },
+                                               ],
+                                               lastname : [ {
+                                                 value   : '',
+                                                 disabled: true,
+                                               },
+                                               ],
                                              } );
     this.updatePasswordForm = this.fb.group( {
                                                old    : [ '', [ Validators.required ] ],
@@ -110,6 +127,11 @@ export class ProfileComponent
     this.privateLayoutService.showBreadcrumbs.next( true );
     this.profile = await this.getProfile();
     this.prefilForm( this.profile );
+  }
+
+  ngOnDestroy() {
+    this.privateLayoutService.hasSideNav.next( false );
+    this.privateLayoutService.showBreadcrumbs.next( false );
   }
 
   private prefilForm( profile: IProfile ) {
@@ -153,12 +175,36 @@ export class ProfileComponent
     this.openAvatarModal   = false;
   }
 
+  activateBasicInfoForm() {
+    this.enableBasicFormFields();
+  }
+
+  dismissBasicInfoForm() {
+    this.prefilForm( this.profile as IProfile );
+    this.disableBasicFormFields();
+  }
+
+  enableBasicFormFields() {
+    this.basicInfoForm.controls[ 'email' ].enable();
+    this.basicInfoForm.controls[ 'bio' ].enable();
+    this.basicInfoForm.controls[ 'firstname' ].enable();
+    this.basicInfoForm.controls[ 'lastname' ].enable();
+  }
+
+  disableBasicFormFields() {
+    this.basicInfoForm.controls[ 'email' ].disable();
+    this.basicInfoForm.controls[ 'bio' ].disable();
+    this.basicInfoForm.controls[ 'firstname' ].disable();
+    this.basicInfoForm.controls[ 'lastname' ].disable();
+  }
+
 
   public async uploadAvatar() {
     await ( this.apollo.mutate( {
                                   mutation : UPLOAD_AVATAR,
                                   variables: { avatar: this.croppedImage },
-                                } ).toPromise() );this.profile = await this.getProfile( 'no-cache' );
+                                } ).toPromise() );
+    this.profile = await this.getProfile( 'no-cache' );
 
     if ( this.wizard ) this.wizard.reset();
 
@@ -192,6 +238,7 @@ export class ProfileComponent
       } );
     this.profile = await this.getProfile( 'no-cache' );
     this.prefilForm( this.profile );
+    this.disableBasicFormFields();
   }
 
   public async updatePassword() {

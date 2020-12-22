@@ -1,6 +1,5 @@
 import {
   Component,
-  DoCheck,
   OnDestroy,
   OnInit,
 } from '@angular/core';

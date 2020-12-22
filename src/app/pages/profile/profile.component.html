@@ -7,11 +7,25 @@
       <div class="card"
            *ngIf="profile">
         <div class="card-header">
-          <div class="card-title">Basic Information</div>
+          <div class="basic-info-header">
+            <div class="card-title">
+              Basic information
+            </div>
+
+            <button type="button"
+                    *ngIf="basicInfoForm.controls[ 'email' ].disabled"
+                    (click)="activateBasicInfoForm()"
+                    class="btn btn-sm btn-outline-primary">
+              {{'GENERAL.EDIT' | translate}}
+              <clr-icon shape="edit"></clr-icon>
+            </button>
+
+          </div>
+
         </div>
         <form [formGroup]="basicInfoForm"
               (ngSubmit)="updateProfile()">
-          <div class="card-block">
+          <div class="card-block pb-3">
             <!-- firstname -->
             <div class="clr-row">
               <div class="clr-col-12">
@@ -38,21 +52,6 @@
                 </clr-input-container>
               </div>
             </div>
-            <!-- bio -->
-            <div class="clr-row">
-              <div class="clr-col-12">
-                <clr-textarea-container class="w-100">
-                  <label>Bio</label>
-                  <textarea rows="7"
-                            class="w-100"
-                            clrTextarea
-                            [formControlName]="'bio'"
-                            placeholder="Write something about yourself"
-                            type="text">
-              </textarea>
-                </clr-textarea-container>
-              </div>
-            </div>
             <!-- email -->
             <div class="clr-row">
               <div class="clr-col-12">
@@ -74,13 +73,33 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div class="card-footer">
+            <!-- bio -->
             <div class="clr-row">
               <div class="clr-col-12">
+                <clr-textarea-container class="w-100">
+                  <label>Bio</label>
+                  <textarea rows="7"
+                            class="w-100"
+                            clrTextarea
+                            [formControlName]="'bio'"
+                            placeholder="Write something about yourself"
+                            type="text">
+              </textarea>
+                </clr-textarea-container>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer"
+               *ngIf="basicInfoForm.controls[ 'email' ].enabled">
+            <div class="clr-row">
+              <div class="basic-info-action-buttons">
+                <button type="button"
+                        (click)="dismissBasicInfoForm()"
+                        class="btn btn-secondary">Dismiss
+                </button>
                 <button type="submit"
                         [disabled]="!basicInfoForm?.valid"
-                        class="btn btn-primary btn-block">Update info
+                        class="btn btn-primary">Update info
                 </button>
               </div>
             </div>
@@ -102,7 +121,8 @@
               <clr-icon shape="edit"></clr-icon>
             </button>
           </div>
-          <img [src]="safeAvatar ? safeAvatar : defaultAvatar">
+          <img [src]="safeAvatar ? safeAvatar : defaultAvatar"
+               alt="avatar">
         </div>
 
       </div>

@@ -1,0 +1,25 @@
+{
+  "GENERAL": {
+    "DISMISS": "Dismiss",
+    "SUBMIT": "Submit",
+    "EDIT": "Edit",
+    "CREATE": "Create",
+    "DELETE": "Delete"
+  },
+  "AUTH_LAYOUT": {
+    "HEADER_NAV": {
+      "HOME": "Home",
+      "ABOUT": "About",
+      "SETTINGS": {
+        "WELCOME_MESSAGE": "Welcome, {{name}}",
+        "PROFILE": "Profile",
+        "LOGOUT": "Sign out"
+      }
+    },
+    "BREADCRUMBS": {
+      "CURRENT_LOCATION": "Current location"
+    }
+  }
+}
+
+
