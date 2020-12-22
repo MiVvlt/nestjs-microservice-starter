@@ -2,7 +2,12 @@
   <div class="clr-col-lg-4 clr-col-md-6 clr-col-12">
     <div class="card">
       <div class="card-img">
-        <img src="https://place-hold.it/200x200">
+        <div class="edit-avatar">
+          <button class="btn btn-icon" (click)="openAvatarModal = true">
+            <clr-icon shape="edit"></clr-icon>
+          </button>
+        </div>
+        <img [src]="safeAvatar ? safeAvatar : defaultAvatar">
       </div>
       <div class="card-block">
         <div class="card-title">
@@ -16,14 +21,79 @@
              *ngIf="profile">
           E-mail: {{profile?.email}}
         </div>
-        <div class="card-text"
-             *ngIf="profile">
-          Created: {{profile?.dateCreated | date : 'dd MMM yyyy, HH:mm'}}
-        </div>
       </div>
       <div class="card-footer">
-        <button class="btn btn-sm btn-link">Footer Action 2</button>
+        <div class="card-text"
+             *ngIf="profile">
+          <small>Created: {{profile?.dateCreated | date : 'dd MMM yyyy, HH:mm'}}</small>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
+
+<clr-wizard #wizard
+            [(clrWizardOpen)]="openAvatarModal"
+            (clrWizardOnReset)="resetAvatarModal()"
+            (clrWizardOnFinish)="uploadAvatar()">
+  <clr-wizard-title>Upload avatar</clr-wizard-title>
+
+  <clr-wizard-button [type]="'cancel'">Cancel</clr-wizard-button>
+  <clr-wizard-button [type]="'previous'">Back</clr-wizard-button>
+  <clr-wizard-button [type]="'next'">Next</clr-wizard-button>
+  <clr-wizard-button [type]="'finish'">Upload</clr-wizard-button>
+
+  <clr-wizard-page #pageOne
+                   [clrWizardPageNextDisabled]="!imageChangedEvent">
+    <ng-template clrPageTitle>Basic Information</ng-template>
+    <ng-template clrPageNavTitle>Select Image</ng-template>
+    <clr-input-container>
+      <label>Name</label>
+      <input clrInput
+             type="file"
+             accept="image/png"
+             (change)="fileChangeEvent($event)"/>
+    </clr-input-container>
+  </clr-wizard-page>
+
+  <clr-wizard-page #pageTwo>
+    <ng-template clrPageTitle>Crop</ng-template>
+    <ng-template clrPageNavTitle>Crop image</ng-template>
+
+    <div class="clr-row">
+      <div class="clr-col-lg-8 clr-col-md-8 clr-col-12">
+        <h4>Image Cropper</h4>
+        <image-cropper
+          [imageChangedEvent]="imageChangedEvent"
+          [maintainAspectRatio]="true"
+          [aspectRatio]="4 / 4"
+          [resizeToWidth]="256"
+          format="png"
+          (imageCropped)="imageCropped($event)"></image-cropper>
+      </div>
+      <div class="clr-col-lg-4 clr-col-md-4 clr-col-12">
+        <h4>Preview</h4>
+        <img [src]="croppedImage"
+             alt="preview">
+      </div>
+    </div>
+  </clr-wizard-page>
+  <clr-wizard-page #pageThree>
+    <ng-template clrPageTitle>Upload</ng-template>
+    <ng-template clrPageNavTitle>Confirm and upload</ng-template>
+    <div class="clr-row">
+      <div class="clr-col-md-6 clr-col-12">
+        <h4>Preview</h4>
+        <img [src]="croppedImage"
+             alt="preview">
+      </div>
+      <div class="clr-col-md-6 clr-col-12">
+        <h4>Preview rounded</h4>
+        <img [src]="croppedImage"
+             alt="preview"
+             class="round">
+      </div>
+    </div>
+  </clr-wizard-page>
+</clr-wizard>
