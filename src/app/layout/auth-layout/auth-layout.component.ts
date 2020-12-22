@@ -6,13 +6,13 @@ import {
 } from '@angular/core';
 import { AppComponent } from '../../app.component';
 import { Subscription } from 'rxjs';
-import { PrivateLayoutService } from '../../services/private-layout.service';
 import {
   Apollo,
   gql,
 } from 'apollo-angular';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { LayoutService } from '../../services/layout.service';
 
 const ME = gql`
   query {
@@ -53,28 +53,28 @@ export class AuthLayoutComponent
     message    : '',
   };
 
-  constructor( public privateLayoutService: PrivateLayoutService,
+  constructor( public layoutService: LayoutService,
                private cdr: ChangeDetectorRef,
                private apollo: Apollo,
                private authService: AuthService,
                private router: Router,
   ) {
-    this.hasSideNavSub = this.privateLayoutService.hasSideNav.subscribe( ( val ) => {
+    this.hasSideNavSub = this.layoutService.hasSideNav.subscribe( ( val ) => {
       this.hasSideNav = val;
       this.cdr.detectChanges();
     } );
 
-    this.sideNavCollapsedSub = this.privateLayoutService.sideNavCollapsed.subscribe( ( val ) => {
+    this.sideNavCollapsedSub = this.layoutService.sideNavCollapsed.subscribe( ( val ) => {
       this.sideNavCollapsed = val;
       this.cdr.detectChanges();
     } );
 
-    this.showBreadcrumbsSub = this.privateLayoutService.showBreadcrumbs.subscribe( ( val ) => {
+    this.showBreadcrumbsSub = this.layoutService.showBreadcrumbs.subscribe( ( val ) => {
       this.showBreadcrumbs = val;
       this.cdr.detectChanges();
     } );
 
-    this.alertsSub = this.privateLayoutService.alert.subscribe( ( val ) => {
+    this.alertsSub = this.layoutService.alert.subscribe( ( val ) => {
       if ( val ) {
         this.alert.dismissable = !val.dismissAfter ? true : val.dismissable;
         this.alert.type        = val.type;

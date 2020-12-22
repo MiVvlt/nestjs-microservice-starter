@@ -5,9 +5,9 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { PublicLayoutService } from '../../services/public-layout.service';
 import { Subscription } from 'rxjs';
 import { AppComponent } from '../../app.component';
+import { LayoutService } from '../../services/layout.service';
 
 @Component( {
               selector   : 'app-public-layout',
@@ -33,23 +33,23 @@ export class PublicLayoutComponent
     message    : '',
   };
 
-  constructor( public publicLayoutService: PublicLayoutService, private cdr: ChangeDetectorRef ) {
-    this.hasSideNavSub = this.publicLayoutService.hasSideNav.subscribe( ( val ) => {
+  constructor( public layoutService: LayoutService, private cdr: ChangeDetectorRef ) {
+    this.hasSideNavSub = this.layoutService.hasSideNav.subscribe( ( val ) => {
       this.hasSideNav = val;
       this.cdr.detectChanges();
     } );
 
-    this.sideNavCollapsedSub = this.publicLayoutService.sideNavCollapsed.subscribe( ( val ) => {
+    this.sideNavCollapsedSub = this.layoutService.sideNavCollapsed.subscribe( ( val ) => {
       this.sideNavCollapsed = val;
       this.cdr.detectChanges();
     } );
 
-    this.showBreadcrumbsSub = this.publicLayoutService.showBreadcrumbs.subscribe( ( val ) => {
+    this.showBreadcrumbsSub = this.layoutService.showBreadcrumbs.subscribe( ( val ) => {
       this.showBreadcrumbs = val;
       this.cdr.detectChanges();
     } );
 
-    this.alertsSub = this.publicLayoutService.alert.subscribe( ( val ) => {
+    this.alertsSub = this.layoutService.alert.subscribe( ( val ) => {
       if ( val ) {
         this.alert.dismissable = !val.dismissAfter ? true : val.dismissable;
         this.alert.type        = val.type;

@@ -18,13 +18,10 @@ import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { environment } from '../../../environments/environment';
 import { MustMatch } from '../../helpers/must-match.validator';
 import {
-  IAlert,
-  PrivateLayoutService,
-} from '../../services/private-layout.service';
-import {
   Apollo,
   gql,
 } from 'apollo-angular';
+import { LayoutService } from '../../services/layout.service';
 
 
 const ME = gql`
@@ -84,7 +81,7 @@ export class ProfileComponent
 
   @ViewChild( 'wizard', { static: false } ) wizard: ClrWizard | undefined;
 
-  constructor( private privateLayoutService: PrivateLayoutService,
+  constructor( private layoutService: LayoutService,
                private apollo: Apollo,
                private readonly fb: FormBuilder,
                private sanitization: DomSanitizer,
@@ -123,15 +120,15 @@ export class ProfileComponent
   }
 
   async ngOnInit(): Promise<void> {
-    this.privateLayoutService.hasSideNav.next( true );
-    this.privateLayoutService.showBreadcrumbs.next( true );
+    this.layoutService.hasSideNav.next( true );
+    this.layoutService.showBreadcrumbs.next( true );
     this.profile = await this.getProfile();
     this.prefilForm( this.profile );
   }
 
   ngOnDestroy() {
-    this.privateLayoutService.hasSideNav.next( false );
-    this.privateLayoutService.showBreadcrumbs.next( false );
+    this.layoutService.hasSideNav.next( false );
+    this.layoutService.showBreadcrumbs.next( false );
   }
 
   private prefilForm( profile: IProfile ) {
@@ -210,7 +207,7 @@ export class ProfileComponent
 
     this.resetAvatarModal();
 
-    this.privateLayoutService.showAlert( {
+    this.layoutService.showAlert( {
                                            dismissAfter: 3000,
                                            dismissable : false,
                                            message     : 'Successfully updated avatar',
@@ -229,7 +226,7 @@ export class ProfileComponent
                                   },
                                 } ).toPromise() )
       .then( () => {
-        this.privateLayoutService.showAlert( {
+        this.layoutService.showAlert( {
                                                dismissAfter: 3000,
                                                dismissable : false,
                                                message     : 'Successfully updated profile',
@@ -250,7 +247,7 @@ export class ProfileComponent
                                   },
                                 } ).toPromise() )
       .then( () => {
-        this.privateLayoutService.showAlert( {
+        this.layoutService.showAlert( {
                                                dismissAfter: 3000,
                                                dismissable : false,
                                                message     : 'Successfully updated password',
@@ -259,14 +256,14 @@ export class ProfileComponent
       } )
       .catch( ( err ) => {
         if ( err.message.indexOf( 'message: "Invalid password"' ) !== -1 ) {
-          this.privateLayoutService.showAlert( {
+          this.layoutService.showAlert( {
                                                  dismissAfter: 0,
                                                  dismissable : true,
                                                  message     : 'Invalid password',
                                                  type        : 'danger',
                                                } );
         } else {
-          this.privateLayoutService.showAlert( {
+          this.layoutService.showAlert( {
                                                  dismissAfter: 0,
                                                  dismissable : true,
                                                  message     : 'Something went wrong',

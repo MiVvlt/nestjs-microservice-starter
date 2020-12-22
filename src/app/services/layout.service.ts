@@ -1,11 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { IAlert } from './private-layout.service';
+
+export interface IAlert {
+  dismissAfter?: number,
+  type: 'danger' | 'success' | 'info' | 'warn',
+  dismissable: boolean,
+  message: string
+}
 
 @Injectable( {
                providedIn: 'root',
              } )
-export class PublicLayoutService {
+export class LayoutService {
   public hasSideNav: Subject<boolean>       = new Subject<boolean>();
   public sideNavCollapsed: Subject<boolean> = new Subject<boolean>();
   public showBreadcrumbs: Subject<boolean>  = new Subject<boolean>();

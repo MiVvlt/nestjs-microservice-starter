@@ -12,7 +12,6 @@ import { PublicLayoutModule } from './layout/public-layout/public-layout.module'
 import { ClarityModule } from '@clr/angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthLayoutModule } from './layout/auth-layout/auth-layout.module';
-import { PublicLayoutService } from './services/public-layout.service';
 import {
   HttpClient,
   HttpClientModule,
@@ -21,6 +20,7 @@ import {
 
 import { onError } from '@apollo/client/link/error';
 import { GraphQLModule } from './graphql.module';
+import { LayoutService } from './services/layout.service';
 
 const link = onError( ( {
                           graphQLErrors,
@@ -65,7 +65,7 @@ export function HttpLoaderFactory( http: HttpClient ) {
                                                         },
                                                       } ),
              ],
-             providers   : [ PublicLayoutService ],
+             providers   : [  LayoutService],
              bootstrap   : [ AppComponent ],
            } )
 export class AppModule {

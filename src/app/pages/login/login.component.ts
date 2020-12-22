@@ -15,7 +15,7 @@ import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { PublicLayoutService } from '../../services/public-layout.service';
+import { LayoutService } from '../../services/layout.service';
 
 // We use the gql tag to parse our query string into a query document
 const LOGIN = gql`
@@ -43,7 +43,7 @@ export class LoginComponent
                private apollo: Apollo,
                private authService: AuthService,
                private router: Router,
-               private publicLayoutService: PublicLayoutService,
+               private layoutService: LayoutService,
   ) {
     this.loginForm = this.fb.group( {
                                       email   : [ '', [ Validators.required, Validators.email ] ],
@@ -66,14 +66,14 @@ export class LoginComponent
       this.router.navigate( [ '/auth/home' ] );
     } catch ( err ) {
       if ( err.message.indexOf( 'message: "Invalid credentials."' ) !== -1 ) {
-        this.publicLayoutService.showAlert( {
+        this.layoutService.showAlert( {
                                               dismissable : true,
                                               dismissAfter: 5000,
                                               message     : 'Invalid Credentials',
                                               type        : 'danger',
                                             } );
       } else {
-        this.publicLayoutService.showAlert( {
+        this.layoutService.showAlert( {
                                               dismissable : true,
                                               dismissAfter: 5000,
                                               message     : 'Unable to log in, something went wrong',
