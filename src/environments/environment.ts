@@ -3,8 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  BFF_URL: 'http://localhost:3300/'
+  production         : false,
+  BFF_URL            : 'http://localhost:3300/',
+  MIN_PASSWORD_LENGTH: 8,
 };
 
 /*

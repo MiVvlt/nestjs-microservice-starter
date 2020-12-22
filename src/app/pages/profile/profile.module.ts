@@ -1,11 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import {
   ClrAlertModule,
   ClrInputModule,
   ClrModalModule,
   ClrSelectModule,
+  ClrTextareaModule,
   ClrWizardModule,
 } from '@clr/angular';
 import { ProfileComponent } from './profile.component';
@@ -24,6 +28,8 @@ import { ImageCropperModule } from 'ngx-image-cropper';
                         FormsModule,
                         ClrSelectModule,
                         ClrAlertModule,
+                        ClrTextareaModule,
+                        ReactiveFormsModule,
              ],
            } )
 export class ProfileModule {

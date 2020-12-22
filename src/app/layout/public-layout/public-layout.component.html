@@ -1,4 +1,17 @@
 <div class="main-container">
+  <clr-alert *ngIf="alert.visible"
+             [clrAlertType]="alert.type"
+             [clrAlertClosable]="false"
+             [clrAlertAppLevel]="true">
+    <clr-alert-item>
+        <span class="alert-text">
+            {{ alert.message}}
+        </span>
+      <div class="alert-actions" *ngIf="alert.dismissable">
+        <button class="btn alert-action" (click)="dismissAlert()">Dismiss</button>
+      </div>
+    </clr-alert-item>
+  </clr-alert>
   <header class="header header-6">
     <div class="branding">
       <clr-icon shape="blocks-group"></clr-icon>

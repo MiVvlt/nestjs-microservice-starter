@@ -7,6 +7,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { environment } from '../../../environments/environment';
 import { AppComponent } from '../../app.component';
 
 import { Apollo } from 'apollo-angular';
@@ -14,6 +15,7 @@ import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { PublicLayoutService } from '../../services/public-layout.service';
 
 // We use the gql tag to parse our query string into a query document
 const LOGIN = gql`
@@ -32,7 +34,8 @@ const LOGIN = gql`
               templateUrl: './login.component.html',
               styleUrls  : [ './login.component.scss' ],
             } )
-export class LoginComponent implements OnInit {
+export class LoginComponent
+  implements OnInit {
   public loginForm: FormGroup;
   public productName: string = AppComponent.productName;
 
@@ -40,10 +43,15 @@ export class LoginComponent implements OnInit {
                private apollo: Apollo,
                private authService: AuthService,
                private router: Router,
+               private publicLayoutService: PublicLayoutService,
   ) {
     this.loginForm = this.fb.group( {
                                       email   : [ '', [ Validators.required, Validators.email ] ],
-                                      password: [ '', [ Validators.required, Validators.minLength( 8 ) ] ],
+                                      password: [ '',
+                                                  [ Validators.required,
+                                                    Validators.minLength( environment.MIN_PASSWORD_LENGTH ),
+                                                  ],
+                                      ],
                                     } );
   }
 
@@ -57,10 +65,21 @@ export class LoginComponent implements OnInit {
       this.authService.setAccessToken( token as string );
       this.router.navigate( [ '/auth/home' ] );
     } catch ( err ) {
-      this.failedToLogin( err );
-    }
-    if ( token ) {
-      console.info( token );
+      if ( err.message.indexOf( 'message: "Invalid credentials."' ) !== -1 ) {
+        this.publicLayoutService.showAlert( {
+                                              dismissable : true,
+                                              dismissAfter: 5000,
+                                              message     : 'Invalid Credentials',
+                                              type        : 'danger',
+                                            } );
+      } else {
+        this.publicLayoutService.showAlert( {
+                                              dismissable : true,
+                                              dismissAfter: 5000,
+                                              message     : 'Unable to log in, something went wrong',
+                                              type        : 'danger',
+                                            } );
+      }
     }
   }
 
@@ -86,10 +105,6 @@ export class LoginComponent implements OnInit {
             reject( err );
           } );
     } );
-  }
-
-  failedToLogin( error: any ) {
-    console.error( error );
   }
 
 }

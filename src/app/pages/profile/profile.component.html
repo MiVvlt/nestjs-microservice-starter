@@ -1,32 +1,196 @@
-<div class="clr-row">
-  <div class="clr-col-lg-4 clr-col-md-6 clr-col-12">
-    <div class="card">
-      <div class="card-img">
-        <div class="edit-avatar">
-          <button class="btn btn-icon" (click)="openAvatarModal = true">
-            <clr-icon shape="edit"></clr-icon>
-          </button>
+<div class="container pb-3">
+  <div class="clr-row">
+    <div class="clr-col-12">
+      <h2>Profile settings</h2>
+    </div>
+    <div class="clr-col-lg-8 clr-col-12">
+      <div class="card"
+           *ngIf="profile">
+        <div class="card-header">
+          <div class="card-title">Basic Information</div>
         </div>
-        <img [src]="safeAvatar ? safeAvatar : defaultAvatar">
+        <form [formGroup]="basicInfoForm"
+              (ngSubmit)="updateProfile()">
+          <div class="card-block">
+            <!-- firstname -->
+            <div class="clr-row">
+              <div class="clr-col-12">
+                <clr-input-container>
+                  <label>First name</label>
+                  <input class="w-100"
+                         clrInput
+                         [formControlName]="'firstname'"
+                         placeholder="First name"
+                         type="text"/>
+                </clr-input-container>
+              </div>
+            </div>
+            <!-- lastname -->
+            <div class="clr-row">
+              <div class="clr-col-12">
+                <clr-input-container>
+                  <label>Last name</label>
+                  <input class="w-100"
+                         clrInput
+                         [formControlName]="'lastname'"
+                         placeholder="Last name"
+                         type="text"/>
+                </clr-input-container>
+              </div>
+            </div>
+            <!-- bio -->
+            <div class="clr-row">
+              <div class="clr-col-12">
+                <clr-textarea-container class="w-100">
+                  <label>Bio</label>
+                  <textarea rows="7"
+                            class="w-100"
+                            clrTextarea
+                            [formControlName]="'bio'"
+                            placeholder="Write something about yourself"
+                            type="text">
+              </textarea>
+                </clr-textarea-container>
+              </div>
+            </div>
+            <!-- email -->
+            <div class="clr-row">
+              <div class="clr-col-12">
+                <clr-input-container>
+                  <label>Email</label>
+                  <input class="w-100"
+                         clrInput
+                         [formControlName]="'email'"
+                         placeholder="E-mail"
+                         type="text"/>
+                </clr-input-container>
+                <div class="error active"
+                     *ngIf="basicInfoForm?.get('email')?.dirty && basicInfoForm?.get('email')?.hasError('required')">
+                  Email is a required field
+                </div>
+                <div class="error active"
+                     *ngIf="basicInfoForm?.get('email')?.dirty && basicInfoForm?.get('email')?.hasError('email')">
+                  Please provide a valid email
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="clr-row">
+              <div class="clr-col-12">
+                <button type="submit"
+                        [disabled]="!basicInfoForm?.valid"
+                        class="btn btn-primary btn-block">Update info
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
       </div>
-      <div class="card-block">
-        <div class="card-title">
-          Profile
+    </div>
+
+    <div class="clr-col-lg-4 clr-col-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Avatar</div>
         </div>
-        <div class="card-text"
-             *ngIf="profile">
-          Name: {{profile?.firstname}} {{profile?.lastname}}
+        <div class="card-img">
+          <div class="edit-avatar">
+            <button class="btn btn-icon"
+                    (click)="openAvatarModal = true">
+              Edit
+              <clr-icon shape="edit"></clr-icon>
+            </button>
+          </div>
+          <img [src]="safeAvatar ? safeAvatar : defaultAvatar">
         </div>
-        <div class="card-text"
-             *ngIf="profile">
-          E-mail: {{profile?.email}}
-        </div>
+
       </div>
-      <div class="card-footer">
-        <div class="card-text"
-             *ngIf="profile">
-          <small>Created: {{profile?.dateCreated | date : 'dd MMM yyyy, HH:mm'}}</small>
+    </div>
+
+    <div class="clr-col-lg-6 clr-col-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Update password</div>
         </div>
+        <form [formGroup]="updatePasswordForm"
+              (ngSubmit)="updatePassword()">
+          <div class="card-block">
+            <!-- old -->
+            <div class="clr-row">
+              <div class="clr-col-12">
+                <clr-input-container>
+                  <label>Old password</label>
+                  <input class="w-100"
+                         clrInput
+                         [formControlName]="'old'"
+                         placeholder="Old password"
+                         type="password"/>
+                </clr-input-container>
+                <div class="error active"
+                     *ngIf="updatePasswordForm?.get('old')?.dirty && updatePasswordForm?.get('old')?.hasError('required')">
+                  Old password is required
+                </div>
+              </div>
+            </div>
+            <!-- new -->
+            <div class="clr-row">
+              <div class="clr-col-12">
+                <clr-input-container>
+                  <label>New password</label>
+                  <input class="w-100"
+                         clrInput
+                         [formControlName]="'new'"
+                         placeholder="New password"
+                         type="password"/>
+                </clr-input-container>
+                <div class="error active"
+                     *ngIf="updatePasswordForm?.get('new')?.dirty &&
+                     updatePasswordForm?.get('new')?.hasError('required')">
+                  New password is required
+                </div>
+                <div class="error active"
+                     *ngIf="updatePasswordForm?.get('new')?.dirty &&
+                     updatePasswordForm?.get('new')?.hasError('minlength')">
+                  New password should be at least 8 characters
+                </div>
+              </div>
+            </div>
+            <!-- confirm -->
+            <div class="clr-row">
+              <div class="clr-col-12">
+                <clr-input-container>
+                  <label>Confirm new password</label>
+                  <input class="w-100"
+                         clrInput
+                         [formControlName]="'confirm'"
+                         placeholder="Confirm password"
+                         type="password"/>
+                </clr-input-container>
+                <div class="error active"
+                     *ngIf="updatePasswordForm?.get('confirm')?.dirty &&
+                     updatePasswordForm?.get('confirm')?.hasError('required')">
+                  Confirm new password
+                </div>
+                <div class="error active"
+                     *ngIf="updatePasswordForm?.get('confirm')?.dirty &&
+                     updatePasswordForm?.get('confirm')?.hasError('mustMatch')">
+                  Passwords don't match
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="clr-row">
+              <div class="clr-col-12">
+                <button type="submit"
+                        [disabled]="!updatePasswordForm?.valid"
+                        class="btn btn-primary btn-block">Change password
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>
@@ -34,8 +198,8 @@
 
 
 <clr-wizard #wizard
-            [(clrWizardOpen)]="openAvatarModal"
-            (clrWizardOnReset)="resetAvatarModal()"
+            [clrWizardOpen]="openAvatarModal"
+            (clrWizardOnReset)="resetAvatarModal"
             (clrWizardOnFinish)="uploadAvatar()">
   <clr-wizard-title>Upload avatar</clr-wizard-title>
 

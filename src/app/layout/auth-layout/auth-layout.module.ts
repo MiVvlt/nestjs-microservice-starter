@@ -5,6 +5,7 @@ import { privateLayoutRoutes } from './auth-layout.routes';
 import { AuthLayoutComponent } from './auth-layout.component';
 import { PrivateLayoutService } from '../../services/private-layout.service';
 import {
+  ClrAlertModule,
   ClrDropdownModule,
   ClrIconModule,
   ClrVerticalNavModule,
@@ -14,11 +15,12 @@ import { AuthService } from '../../services/auth.service';
 
 @NgModule( {
              declarations: [ AuthLayoutComponent ],
-             imports     : [ CommonModule,
-                             RouterModule.forChild( privateLayoutRoutes ),
-                             ClrIconModule,
-                             ClrDropdownModule,
-                             ClrVerticalNavModule,
+             imports: [ CommonModule,
+                        RouterModule.forChild( privateLayoutRoutes ),
+                        ClrIconModule,
+                        ClrDropdownModule,
+                        ClrVerticalNavModule,
+                        ClrAlertModule,
              ],
              providers   : [ PrivateLayoutService, AuthService,
              ],

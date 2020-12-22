@@ -32,7 +32,8 @@ interface IProfile {
               templateUrl: './auth-layout.component.html',
               styleUrls  : [ './auth-layout.component.scss' ],
             } )
-export class AuthLayoutComponent implements OnInit, OnDestroy {
+export class AuthLayoutComponent
+  implements OnInit, OnDestroy {
   public title: string      = AppComponent.productName;
   showBreadcrumbs: boolean  = false;
   sideNavCollapsed: boolean = false;
@@ -41,8 +42,16 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
   private hasSideNavSub: Subscription;
   private sideNavCollapsedSub: Subscription;
   private showBreadcrumbsSub: Subscription;
+  private alertsSub: Subscription;
 
   public profile: IProfile | undefined = undefined;
+
+  public alert = {
+    visible    : false,
+    type       : 'info',
+    dismissable: false,
+    message    : '',
+  };
 
   constructor( public privateLayoutService: PrivateLayoutService,
                private cdr: ChangeDetectorRef,
@@ -63,6 +72,25 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
     this.showBreadcrumbsSub = this.privateLayoutService.showBreadcrumbs.subscribe( ( val ) => {
       this.showBreadcrumbs = val;
       this.cdr.detectChanges();
+    } );
+
+    this.alertsSub = this.privateLayoutService.alert.subscribe( ( val ) => {
+      if ( val ) {
+        this.alert.dismissable = !val.dismissAfter ? true : val.dismissable;
+        this.alert.type        = val.type;
+        this.alert.message     = val.message;
+
+        this.alert.visible = true;
+
+        if ( val.dismissAfter ) {
+          setTimeout( () => {
+            this.alert.visible = false;
+            this.cdr.detectChanges();
+          }, val.dismissAfter );
+        }
+
+        this.cdr.detectChanges();
+      }
     } );
   }
 
@@ -89,9 +117,14 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
     this.profile = ( await this.fetchProfile() ) as IProfile;
   }
 
+  dismissAlert() {
+    this.alert.visible = false;
+  }
+
   ngOnDestroy() {
     this.hasSideNavSub.unsubscribe();
     this.sideNavCollapsedSub.unsubscribe();
     this.showBreadcrumbsSub.unsubscribe();
+    this.alertsSub.unsubscribe();
   }
 }

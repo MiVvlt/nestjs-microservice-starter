@@ -4,10 +4,15 @@
   right: 0;
 }
 
-.card-img{
+.card-img {
   position: relative;
 }
 
-.round{
+.round {
   border-radius: 50%;
+}
+
+textarea {
+  max-width: 100%;
+  min-width: 100%;
 }
