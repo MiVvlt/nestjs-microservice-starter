@@ -1,0 +1,14 @@
+version: 2.1
+jobs:
+  build:
+    docker:
+      - image: cimg/node:14.10.1 # the primary container, where your job's commands are run
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - '8a:bc:23:4b:25:8e:eb:0e:37:3a:58:ba:ac:f0:fc:6d'
+      - checkout # check out the code in the project directory
+      - run: npm install
+      - run: npm run test
+      - run: npm run build
+      - run: bash .deploy.sh
