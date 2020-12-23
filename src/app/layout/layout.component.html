@@ -1,4 +1,4 @@
-<div class="main-container">
+<clr-main-container>
   <!--
   // ALERTS
   -->
@@ -22,21 +22,18 @@
   // HEADER
   -->
 
-  <header class="header header-6">
-    <div class="branding">
+  <clr-header class="header-6">
+    <div class="branding" routerLink="home">
       <clr-icon shape="blocks-group"></clr-icon>
-      <h3 class="clr-hidden-md-down">{{ title }}</h3>
+      <h3 class="clr-hidden-sm-down">{{ title }}</h3>
     </div>
 
 
     <!--
     // MAIN NAVIGATION
     -->
-    <div class="header-nav">
-      <a routerLink="home"
-         routerLinkActive="active"
-         class="nav-link nav-text">{{'AUTH_LAYOUT.HEADER_NAV.HOME' | translate}}</a>
-      <a routerLink=""
+    <div class="header-nav" [clr-nav-level]="1">
+      <a routerLink="about"
          routerLinkActive="active"
          class="nav-link nav-text">{{'AUTH_LAYOUT.HEADER_NAV.ABOUT' | translate}}</a>
     </div>
@@ -44,6 +41,7 @@
     <!--
     // MAIN NAVIGATION ACTIONS
     -->
+
     <div class="header-actions">
       <clr-dropdown>
 
@@ -71,7 +69,7 @@
                role="separator"></div>
 
           <button class="dropdown-item"
-                  routerLink="/auth/profile"
+                  routerLink="/profile"
                   routerLinkActive="active">
             <clr-icon shape="user"></clr-icon>
             {{'AUTH_LAYOUT.HEADER_NAV.SETTINGS.PROFILE' | translate }}
@@ -83,10 +81,17 @@
             {{'AUTH_LAYOUT.HEADER_NAV.SETTINGS.LOGOUT' | translate }}
           </button>
 
+          <button routerLink="register"
+             routerLinkActive="active"
+             clrDropdownItem>Register</button>
+          <button routerLink="login"
+             routerLinkActive="active"
+             clrDropdownItem>Login</button>
+
         </clr-dropdown-menu>
       </clr-dropdown>
     </div>
-  </header>
+  </clr-header>
 
   <!--
   // SUB NAVIGATION (BREADCRUMBS)
@@ -115,10 +120,10 @@
     -->
     <clr-vertical-nav *ngIf="hasSideNav"
                       [clrVerticalNavCollapsible]="true"
-                      [(clrVerticalNavCollapsed)]="sideNavCollapsed">
+                      [(clrVerticalNavCollapsed)]="sideNavCollapsed" [clr-nav-level]="2">
       <a clrVerticalNavLink
          routerLink="home"
          routerLinkActive="active">Home</a>
     </clr-vertical-nav>
   </div>
-</div>
+</clr-main-container>

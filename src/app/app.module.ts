@@ -8,10 +8,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
 import { AppRoutes } from './app.routes';
-import { PublicLayoutModule } from './layout/public-layout/public-layout.module';
 import { ClarityModule } from '@clr/angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AuthLayoutModule } from './layout/auth-layout/auth-layout.module';
 import {
   HttpClient,
   HttpClientModule,
@@ -20,6 +18,7 @@ import {
 
 import { onError } from '@apollo/client/link/error';
 import { GraphQLModule } from './graphql.module';
+import { LayoutModule } from './layout/layout.module';
 import { LayoutService } from './services/layout.service';
 
 const link = onError( ( {
@@ -51,8 +50,7 @@ export function HttpLoaderFactory( http: HttpClient ) {
              imports     : [ BrowserModule,
                              BrowserAnimationsModule,
                              ClarityModule,
-                             PublicLayoutModule,
-                             AuthLayoutModule,
+                             LayoutModule,
                              RouterModule.forRoot( AppRoutes ),
                              HttpClientModule,
                              GraphQLModule,

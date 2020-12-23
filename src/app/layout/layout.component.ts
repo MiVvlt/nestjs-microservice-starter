@@ -4,15 +4,15 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { AppComponent } from '../../app.component';
+import { AppComponent } from '../app.component';
 import { Subscription } from 'rxjs';
 import {
   Apollo,
   gql,
 } from 'apollo-angular';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
-import { LayoutService } from '../../services/layout.service';
+import { AuthService } from '../services/auth.service';
+import { LayoutService } from '../services/layout.service';
 
 const ME = gql`
   query {
@@ -28,11 +28,11 @@ interface IProfile {
 }
 
 @Component( {
-              selector   : 'app-auth-layout',
-              templateUrl: './auth-layout.component.html',
-              styleUrls  : [ './auth-layout.component.scss' ],
+              selector   : 'app-layout',
+              templateUrl: './layout.component.html',
+              styleUrls  : [ './layout.component.scss' ],
             } )
-export class AuthLayoutComponent
+export class LayoutComponent
   implements OnInit, OnDestroy {
   public title: string      = AppComponent.productName;
   showBreadcrumbs: boolean  = false;

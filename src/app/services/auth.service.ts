@@ -38,6 +38,29 @@ export class AuthService {
     }
   }
 
+  public async isAuthenticated() {
+    try {
+      // Check if we have a valid accesstoken, if so, return true
+      let cached = await this.getCachedAccessToken();
+      if ( cached ) {
+        return true;
+      }
+
+      // otherwise, we might need to refresh our token, so let's first try that
+      try {
+        await this.acquireToken();
+        // if we successfully refreshed our token, we can let the user pass
+        return true;
+      } catch ( err ) {
+        return false;
+      }
+    } catch ( err ) {
+
+      // if any other errors are thrown, catch them and return false
+      return false;
+    }
+  }
+
   public logout() {
     localStorage.removeItem( this.TOKEN_KEY );
     return ( this.http.get( environment.BFF_URL + 'auth/logout', { withCredentials: true } ).toPromise() );

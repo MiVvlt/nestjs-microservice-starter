@@ -1,0 +1,104 @@
+.layout-home section.home-hero {
+  padding-top: 3rem;
+  padding-bottom: 3.6rem;
+  position: relative;
+}
+
+.home-hero {
+  height: 34.8rem;
+  max-width: 62.4rem;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 0px;
+  position: relative;
+}
+
+.main-container .content-container .content-area > :first-child {
+  margin-top: 0;
+}
+
+.layout-home section, .layout-home section.home-contact {
+  padding-left: .9rem;
+  padding-right: .9rem;
+
+}
+
+.home-hero .bg-img {
+  height: 36rem;
+  width: 49.65rem;
+  position: absolute;
+  bottom: 0;
+  left: 20.6rem;
+  background-image: url("/assets/img/home/home-bg.png");
+  background-size: cover;
+  background-position: 50%;
+}
+
+
+h1 {
+  font-weight: 200;
+  letter-spacing: -.02em;
+  line-height: 3.6rem;
+  font-size: 3.2rem;
+  margin-bottom: .6rem;
+  margin-top: .6rem;
+}
+
+.home-hero .home-hero-content {
+  position: relative;
+  width: 100%;
+  max-width: 32.4rem;
+  z-index: 1;
+}
+
+.home-hero p.head {
+  font-size: .9rem;
+  font-weight: 200;
+  line-height: 1.8rem;
+  margin: .3rem .25rem;
+  color: #000;
+  max-width: 31.2rem;
+}
+
+.layout-home section.home-cards {
+  padding-left: 1.2rem;
+  padding-right: 1.2rem;
+}
+
+.home-cards .home-cards-container {
+  background-color: hsla(0, 0%, 100%, .7);
+  width: 100%;
+  padding: 2.4rem 0 1.2rem;
+  border-radius: .15rem;
+  margin-top: -8.4rem;
+  border: .05rem solid #dedede;
+  box-shadow: 0 .15rem 0 0 #dedede;
+}
+
+.home-cards .home-cards-container > h1 {
+  font-size: 3rem;
+  margin: 0 0 2.4rem;
+  text-align: center;
+}
+
+.home-cards .home-card-wrapper {
+  width: 100%;
+  margin: 0;
+}
+
+.home-cards .home-card {
+  padding: 1.2rem 1.2rem 0 2.4rem;
+  text-align: left;
+}
+
+.home-cards .home-card-bug {
+  text-align: center;
+  height: 3.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img{
+    height: auto;
+    width: 5rem;
+  }
+}

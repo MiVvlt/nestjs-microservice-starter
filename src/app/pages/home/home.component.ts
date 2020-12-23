@@ -17,12 +17,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.layoutService.hasSideNav.next( true );
   }
 
   ngOnDestroy(): void {
-    // set back to default value so we only have to do the setup when we need a sidenav
-    this.layoutService.hasSideNav.next( false );
+
   }
 
 }

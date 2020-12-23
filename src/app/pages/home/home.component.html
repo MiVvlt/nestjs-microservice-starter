@@ -1,1 +1,101 @@
-<p>home works!</p>
+<div class="container">
+  <section class="home-hero">
+    <div class="home-hero-content">
+      <h1>Microservice starter application</h1>
+      <p class="head"> Server and Client side starter application that uses
+        <clr-signpost>
+          <span clrSignpostTrigger>NestJS</span>
+          <clr-signpost-content [clrPosition]="'bottom-middle'"
+                                *clrIfOpen>
+            A progressive Node.js framework for building efficient, reliable and scalable server-side applications.
+          </clr-signpost-content>
+        </clr-signpost>,
+        <clr-signpost>
+          <span clrSignpostTrigger>Angular</span>
+          <clr-signpost-content [clrPosition]="'bottom-middle'"
+                                *clrIfOpen>
+            Angular is an application design framework and development platform for creating efficient and sophisticated single-page apps.
+          </clr-signpost-content>
+        </clr-signpost>,
+        <clr-signpost>
+          <span clrSignpostTrigger>GraphQL</span>
+          <clr-signpost-content [clrPosition]="'bottom-middle'"
+                                *clrIfOpen>
+            GraphQL is a query language for APIs and a runtime for fulfilling those queries with your existing data.
+          </clr-signpost-content>
+        </clr-signpost>
+        and <clr-signpost>
+          <span clrSignpostTrigger>Clarity Design System</span>
+          <clr-signpost-content [clrPosition]="'bottom-middle'"
+                                *clrIfOpen>
+            UX guidelines, HTML/CSS framework, and Angular components working together to craft exceptional experiences.
+          </clr-signpost-content>
+        </clr-signpost>.
+      </p>
+      <div class="home-hero-btn">
+        <a class="btn btn-primary">Get Started</a>
+        <a class="btn btn-secondary btn-outline">Documentation</a>
+      </div>
+      <p class="subtext"> View the
+        <a rel="noopener"
+           href="https://github.com/MiVvlt"
+           target="_blank">source</a> on GitHub
+      </p>
+    </div>
+    <div class="bg-img bg-img-collaboration"></div>
+  </section>
+
+  <section class="home-cards">
+    <div class="home-cards-container clearfix">
+      <h1>
+        Jumpstart your microservices project
+      </h1>
+      <div class="home-card-wrapper clr-row">
+
+        <div class="home-card home-card-html clr-col-3">
+          <div class="home-card-bug">
+            <img src="assets/img/home/nestjs-logo.svg"
+                 alt="NestJS logo">
+          </div>
+          <h3 class="home-card-title">NestJS</h3>
+          <p> A great wrapper/tool for creating express server applications in a way that Angular developers will be
+            very familiar with.
+          </p>
+        </div>
+
+        <div class="home-card home-card-ux clr-col-3">
+          <div class="home-card-bug">
+            <img src="assets/img/home/graphql-logo.svg"
+                 alt="GraphQL Logo"></div>
+          <h3 class="home-card-title">GraphQL</h3>
+          <p>Our angular application connects directly with the BFF application which uses GraphQL.</p>
+        </div>
+
+        <div class="home-card home-card-angular clr-col-3">
+          <div class="home-card-bug">
+            <img src="assets/img/home/clarity-logo.svg"
+                 alt="Clarity Logo">
+          </div>
+          <h3 class="home-card-title">Clarity</h3>
+          <p> UX guidelines, HTML/CSS framework, and Angular components working together to craft exceptional
+            experiences.</p>
+        </div>
+
+        <div class="home-card home-card-sketch clr-col-3">
+          <div class="home-card-bug">
+            <img src="assets/img/home/angular-logo.svg"
+                 alt="Angular logo">
+          </div>
+          <h3 class="home-card-title">Angular</h3>
+          <p>
+            Client application with a lot of common features already implemented.
+            <i>(i.e. authentication, profile
+              management, GraphQL setup)
+            </i>
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</div>
